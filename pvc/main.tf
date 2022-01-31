@@ -1,6 +1,16 @@
 resource "aws_vpc" "Main" {                # Creating VPC here
    cidr_block       = var.main_vpc_cidr #var.main_vpc_cidr     # Defining the CIDR block use 10.0.0.0/24 for demo
    instance_tenancy = "default"
+   
+   tags = merge({
+     "environment" = "UAT",
+     "app" = "nagendra-app"
+   })
+
+   lifecycle {
+    ignore_changes = [tags]
+   }
+   
  }
 # Create Internet Gateway and attach it to VPC
  resource "aws_internet_gateway" "IGW" {    # Creating Internet Gateway
