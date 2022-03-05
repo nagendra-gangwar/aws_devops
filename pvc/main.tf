@@ -1,6 +1,7 @@
 resource "aws_vpc" "Main" {                # Creating VPC here
    cidr_block       = var.main_vpc_cidr #var.main_vpc_cidr     # Defining the CIDR block use 10.0.0.0/24 for demo
    instance_tenancy = "default"
+<<<<<<< HEAD
    #name = "nagendra-pvc"
    tags = merge({
      "environment" = "UAT",
@@ -11,6 +12,12 @@ resource "aws_vpc" "Main" {                # Creating VPC here
 
    tags_all = merge({
      "Name"       = "nagendrapvc"
+=======
+   
+   tags = merge({
+     "environment" = "UAT",
+     "app" = "nagendra-app"
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
    })
 
    lifecycle {
@@ -21,6 +28,7 @@ resource "aws_vpc" "Main" {                # Creating VPC here
 # Create Internet Gateway and attach it to VPC
  resource "aws_internet_gateway" "IGW" {    # Creating Internet Gateway
     vpc_id =  aws_vpc.Main.id               # vpc_id will be generated after we create VPC
+<<<<<<< HEAD
 
     tags = merge({
      "Name"       = "nagendra-internet-gateway"
@@ -29,11 +37,14 @@ resource "aws_vpc" "Main" {                # Creating VPC here
    tags_all = merge({
      "Name"       = "nagendra-internet-gateway"
    })
+=======
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
  }
  #Create a Public Subnets.
  resource "aws_subnet" "publicsubnets" {    # Creating Public Subnets
    vpc_id =  aws_vpc.Main.id
    cidr_block = "${var.public_subnets}"        # CIDR block of public subnets
+<<<<<<< HEAD
    map_public_ip_on_launch = true
    tags = merge({
      "Name"       = "nagendra-public-subnet"
@@ -42,11 +53,14 @@ resource "aws_vpc" "Main" {                # Creating VPC here
    tags_all = merge({
      "Name"       = "nagendra-public-subnet"
    })
+=======
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
  }
  #Create a Private Subnet                   # Creating Private Subnets
  resource "aws_subnet" "privatesubnets" {
    vpc_id =  aws_vpc.Main.id
    cidr_block = "${var.private_subnets}"          # CIDR block of private subnets
+<<<<<<< HEAD
 
    tags = merge({
      "Name"       = "nagendra-private-subnet"
@@ -55,6 +69,8 @@ resource "aws_vpc" "Main" {                # Creating VPC here
    tags_all = merge({
      "Name"       = "nagendra-private-subnet"
    })
+=======
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
  }
  #Route table for Public Subnet's
  resource "aws_route_table" "PublicRT" {    # Creating RT for Public Subnet
@@ -63,6 +79,7 @@ resource "aws_vpc" "Main" {                # Creating VPC here
     cidr_block = "0.0.0.0/0"               # Traffic from Public Subnet reaches Internet via Internet Gateway
     gateway_id = aws_internet_gateway.IGW.id
      }
+<<<<<<< HEAD
 
      
     tags = merge({
@@ -72,6 +89,8 @@ resource "aws_vpc" "Main" {                # Creating VPC here
    tags_all = merge({
      "Name"       = "nagendra-public-rtable"
    })
+=======
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
  }
  #Route table for Private Subnet's
  resource "aws_route_table" "PrivateRT" {    # Creating RT for Private Subnet
@@ -80,6 +99,7 @@ resource "aws_vpc" "Main" {                # Creating VPC here
    cidr_block = "0.0.0.0/0"             # Traffic from Private Subnet reaches Internet via NAT Gateway
    nat_gateway_id = aws_nat_gateway.NATgw.id
    }
+<<<<<<< HEAD
 
    tags = merge({
      "Name"       = "nagendra-private-rtable"
@@ -89,6 +109,8 @@ resource "aws_vpc" "Main" {                # Creating VPC here
      "Name"       = "nagendra-private-rtable"
    })
 
+=======
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
  }
  #Route table Association with Public Subnet's
  resource "aws_route_table_association" "PublicRTassociation" {
@@ -99,6 +121,7 @@ resource "aws_vpc" "Main" {                # Creating VPC here
  resource "aws_route_table_association" "PrivateRTassociation" {
     subnet_id = aws_subnet.privatesubnets.id
     route_table_id = aws_route_table.PrivateRT.id
+<<<<<<< HEAD
 
  }
  resource "aws_eip" "nateIP" {
@@ -111,11 +134,17 @@ resource "aws_vpc" "Main" {                # Creating VPC here
    tags_all = merge({
      "Name"       = "nagendra-e-ip"
    })
+=======
+ }
+ resource "aws_eip" "nateIP" {
+   vpc   = true
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
  }
  #Creating the NAT Gateway using subnet_id and allocation_id
  resource "aws_nat_gateway" "NATgw" {
    allocation_id = aws_eip.nateIP.id
    subnet_id = aws_subnet.publicsubnets.id
+<<<<<<< HEAD
 
    tags = merge({
      "Name"       = "nagendra-netgateway"
@@ -181,3 +210,6 @@ resource "aws_instance" "BASTION" {
     Name = "ImageHost"
   }
 }
+=======
+ }
+>>>>>>> 0be5055384ab0a08eda7c9a99f6905e6b0dca247
