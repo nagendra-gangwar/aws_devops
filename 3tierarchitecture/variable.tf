@@ -1,0 +1,9 @@
+variable "region" {}
+variable "main_vpc_cidr" {}
+variable "public_subnets" {}
+variable "private_subnets" {}
+variable "start_public_subnets_zones" {}
+variable "start_private_subnets_zones" {}
+variable "appname" {}
+variable "envname" {}
+variable "department" {}

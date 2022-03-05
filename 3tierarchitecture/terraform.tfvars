@@ -1,0 +1,9 @@
+region = "ap-southeast-1"
+main_vpc_cidr = "10.0.0.0/16"
+public_subnets = "10.0.%s.0/24"
+private_subnets = "10.0.%s.0/24"
+start_public_subnets_zones = 10 # i.e. 10 or 20 for publich and private
+start_private_subnets_zones = 20 # i.e. 10 or 20 for publich and private
+appname = "three-tier-application"
+envname = "prod"
+department = "it"
